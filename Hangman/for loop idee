@@ -1,0 +1,17 @@
+word = "kasteel"
+
+lijst met juist geraden letters
+lijst met fout geraden letters
+
+gok = input("geef letter: ")
+
+if gok in word:
+    zet in lijst met juist geraden letters
+
+else: 
+    zet in lijst met fout geraden letters
+
+for l in word:
+    if l in lijst met juist geraden letters:
+        print(l)
+    else:

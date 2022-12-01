@@ -1,0 +1,6 @@
+galgje1 = "  ___"
+galgje2 = " /  |"
+galgje3 = " |"
+galgje4 = " |"
+galgje5 = " |"
+galgje5 = "_|_"
