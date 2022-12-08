@@ -1,17 +1,46 @@
-word = "kasteel"
+# word = "kasteel"
 
-lijst met juist geraden letters
-lijst met fout geraden letters
+# lijst met juist geraden letters
+# lijst met fout geraden letters
 
-gok = input("geef letter: ")
+# gok = input("geef letter: ")
 
-if gok in word:
-    zet in lijst met juist geraden letters
+# if gok in word:
+#     zet in lijst met juist geraden letters
 
-else: 
-    zet in lijst met fout geraden letters
+# else: 
+#     zet in lijst met fout geraden letters
 
-for l in word:
-    if l in lijst met juist geraden letters:
-        print(l)
-    else:
+# for l in word:
+#     if l in lijst met juist geraden letters:
+#         print(l)
+#     else:
+
+word = "banaan"
+
+right = []
+wrong =  []
+
+while True:
+    try:
+        gok = input("geef nu een letter... NU!! ")
+
+        if gok in word:
+            if gok in right:
+                print("letter already used, please try again")
+            else:
+                right.append(gok)
+
+        else:
+            wrong.append(gok)
+
+        print("right list", right)
+        print("wrong list", wrong)
+
+        for l in word:
+            if l in right:
+                print(l)
+            else:
+                print("")
+    except ValueError:
+        print("liefst alleen maar letters gokken")
