@@ -2,7 +2,7 @@ import random
 from collections import Counter
 
 def hangman():
-    with open ("./woordenlijst.txt", "r") as wordlist:
+    with open ("./final\ working\ version/woordenlijst.txt", "r") as wordlist:
         alleTekst = wordlist.readlines()
         word = (random.choice(alleTekst)).strip()
 
