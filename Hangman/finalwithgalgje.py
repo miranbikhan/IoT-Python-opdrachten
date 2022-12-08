@@ -15,7 +15,7 @@ wrongs = []
 tries = 0
 
 while len(word_list2) > 0:
-
+  
     print(galgje1)
     print(galgje2)
     print(galgje3)

@@ -31,10 +31,7 @@ while len(word_list2) > 0:
     print(galgje5)
     print(galgje6)
 
-    if tries == 6:
-        print("Sorry, you ran out of ""life"".")
-        print("The word we were looking for was:", word)
-        exit("see you in the after life")
+    
 
     toGuess = [ letter if letter in guesses else "_" for letter in word]
     print("".join(toGuess))
