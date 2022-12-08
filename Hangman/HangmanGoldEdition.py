@@ -126,5 +126,3 @@ def hangman():
             print("I only accept alphabetical characters... and cash, cash as well!")
 
 hangman()
-
-    
