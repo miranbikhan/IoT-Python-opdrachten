@@ -4,8 +4,8 @@ from collections import Counter
 def hangman():
     with open ("./woordenlijst.txt", "r") as wordlist:
         alleTekst = wordlist.readlines()
-        word = (random.choice(alleTekst)).strip()
-
+        
+    word = (random.choice(alleTekst)).strip()
     galgje1 = "  ___"
     galgje2 = " /  |"
     galgje3 = " |"
@@ -29,7 +29,7 @@ def hangman():
         elif bonus == 2:
             combo = "\nGREAT! 2 right letters in a row!!\n"
         elif bonus == 3:
-            combo = "\nC-C-C-C-COMBO!!! 3 right letters in a row!! You've earned a joker.\n"
+            combo = "\nC-C-C-C-COMBO!!! 3 right letters in a row!! Joker in effect now.\n"
         else:
             combo = ("")
 
@@ -53,8 +53,6 @@ def hangman():
         print(galgje5)
         print(galgje6)
         print(combo)
-        if bonus >= 3:
-            print("\nJoker is in effect now.\n")
         
         if tries == 6:
             print("\nSorry, you ran out of 'life'.")
@@ -74,6 +72,8 @@ def hangman():
         print(" ", wrongs)
 
         guess = input("\nGuess a letter or the right word... ")
+        if bonus >= 3:
+            print("\nJoker is still in effect.\n")
         
 
         if guess.isalpha() == True:
@@ -86,14 +86,15 @@ def hangman():
 
                 elif guess in word_list:
                     bonus += 1
-                    rights.append(guess)
                     for l in word_list:
                         if l == guess:
+                            rights.append(guess)
                             word_list2.remove(guess)
 
                 elif guess not in word_list:
                     if bonus >= 3:
                         print("\nYou got spared by your joker.\n")
+                        wrongs.append(guess)
                         bonus = 0
 
                     else:
@@ -124,5 +125,13 @@ def hangman():
                 print("Hmmm it's tuesday, innit?")
         else:
             print("I only accept alphabetical characters... and cash, cash as well!")
+
+    print("\nCongrats, you didn't get hanged .... yet!")
+    print("The word we were looking for was indeed ", word, ".")
+    again = (input("Waddya say? Again? y/n "))
+    if again == "y":
+        hangman()
+    else:
+        exit("Too bad, I really wanted to see you get hanged ehh  I mean win again... <_<")
 
 hangman()
