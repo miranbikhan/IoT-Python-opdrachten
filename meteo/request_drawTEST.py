@@ -7,28 +7,33 @@ gent = '{"latitude":51.04,"longitude":3.7199998,"generationtime_ms":0.2729892730
 
 gentweer = loads(gent)
 
-time = range(0, 1210, 10)
+time = [*range(0, 1210, 10)]
 
-print(time)
+# print(time)
 weer = gentweer['hourly']['temperature_2m']
-weer_px = [i * 100 for i in weer]
+weer_px = [i * 40 for i in weer]
 
 combo = dict(zip(time, weer_px))
 
-print(combo)
+# print(combo)
 
 
 setup(1250, 850)
 
-draw_pos = setworldcoordinates(-50, -50, 1250, 850)
+setworldcoordinates(-50, -50, 1250, 850)
+draw_pos = (-50, 400)
 # x-as = 5 x 24 uur x 10
 # y-as = 8 temps x 100
 
 penup()
+draw_pos
 
-for d, r in combo:
+for d, r in combo.items():
+
     pendown()
-    goto(d, r)
+    setheading(towards(d, r))
+    forward(10)
+    penup()
 
 
 exitonclick()
