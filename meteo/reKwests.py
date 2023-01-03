@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 import requests
 
@@ -20,4 +21,9 @@ url = requests.get(api_url + apen)
 
 weather_info = url.json()
 
-print(weather_info)
+time = weather_info['hourly']['time']
+temp = weather_info['hourly']['temperature_2m']
+
+time_temp = dict(zip(time, temp))
+
+print(time_temp)
