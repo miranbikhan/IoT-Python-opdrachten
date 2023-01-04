@@ -9,7 +9,7 @@ time = [*range(0, 1210, 10)]
 
 # print(time)
 weer = gentweer['hourly']['temperature_2m']
-weer_px = [i * 40 for i in weer]
+weer_px = [i * 40  for i in weer]
 
 combo = dict(zip(time, weer_px))
 
@@ -21,19 +21,19 @@ combo = dict(zip(time, weer_px))
 setup(1250, 850)
 
 setworldcoordinates(-50, -50, 1250, 850)
-draw_pos = (50, weer_px[0])
+draw_pos = (0, weer_px[0])
 # x-as = 5 x 24 uur x 10
 # y-as = 8 temps x 100
 
-speed(0)
+speed(8)
 delay(0)
-ht()
+# ht()
 
 penup()
 goto(-40, 0)
 setheading(90)
 
-y_as = range(2, 16, 2)
+y_as = range(0, 16, 2)
 for x in y_as:
     pensize(3)
     write(x)
@@ -50,7 +50,7 @@ pensize(0)
 pencolor('grey')
 
 up = 5
-for l in range(7):
+for l in range(8):
     setpos(0, up)
     pendown()
     forward(1200)
@@ -59,18 +59,31 @@ for l in range(7):
 # temperatuurslijnen
 
 
+# penup()
+# # goto(draw_pos)
+# setpos(0, 5)
+# setheading(0)
+# pencolor('blue')
+# setheading(90)
+# pendown()
+# forward(100)
+
 penup()
-goto(draw_pos)
-setheading(0)
-pencolor('blue')
+setpos(time[0], weer_px[0])
 
 for d, r in combo.items():
-    pensize(2)
-    setheading(towards(d, r))
+    # penup()
+    # pensize(2)
+    # setheading(towards(d, r))
+    # pendown()
+    # dot()
+    # forward(10)
+    setpos(d, r)
     pendown()
+    pensize(2)
     dot()
-    forward(10)
-    penup()
+
+
 
 
 exitonclick()
