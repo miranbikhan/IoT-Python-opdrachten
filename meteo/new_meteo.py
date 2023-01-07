@@ -127,7 +127,25 @@ for count, element in enumerate(combo.keys(), ):
     
 
 t.penup()
-t.goto(-590, -95)
+draw_sx = -590
+draw_sy = -95
+t.goto(draw_sx, draw_sy)
+
+
+for w in weer_px:
+    w_y = draw_sy + w * 15
+    t.goto(draw_sx, w_y)
+    t.pensize(2)
+    t.pendown()
+    t.pensize(4)
+    t.dot()
+    draw_sx += 10
+    w_y = 0
+
+
+
+
+
 
 # t.penup()
 # t.goto(0, 0)
