@@ -33,7 +33,7 @@ penup()
 goto(-40, 0)
 setheading(90)
 
-y_as = range(0, 16, 2)
+y_as = range(2, 18, 2)
 for x in y_as:
     pensize(3)
     write(x)
