@@ -52,7 +52,8 @@ s.setup(width, height)
 
 # s.setworldcoordinates(625, -425, 1250, 850)
 
-t.speed(8)
+t.speed(0)
+s.delay(0)
 # t.goto(0,0)
 # print(t.pos())
 # t.goto(-s.window_width() / 2, 0)
@@ -75,8 +76,22 @@ t.pendown()
 t.forward(1200)
 t.penup()
 
-print(combo.keys())
+# y-as
+x_start = -s.window_width() / 2 + 35
+t.goto(x_start, y_start)
+t.write(t.pos())
+t.setheading(90)
+t.forward(50)
+t.penup()
 
+for y in range(-12, 28  , 2):
+    t.goto(x_start - 25 , y_start)
+    t.write(y)
+    y_start += 30
+
+
+x_start = -s.window_width() / 2 + 35
+y_start = -s.window_height() / 2 + 50
 
 # x-as
 for count, element in enumerate(combo.keys(), ):
@@ -111,7 +126,8 @@ for count, element in enumerate(combo.keys(), ):
         x_start += 10
     
 
-
+t.penup()
+t.goto(-590, -95)
 
 # t.penup()
 # t.goto(0, 0)
