@@ -49,39 +49,16 @@ s.setup(width, height)
 
 # print(minmax(weer))
 
-
-# s.setworldcoordinates(625, -425, 1250, 850)
-
 t.speed(0)
 s.delay(0)
-# t.goto(0,0)
-# print(t.pos())
-# t.goto(-s.window_width() / 2, 0)
-# print(t.pos())
-# t.goto(-s.window_width() / 2 +50,0)
-# t.write('xas')
-# t.goto(0, -s.window_height() / 2)
-# print(t.pos())
-# t.goto(0, -s.window_height() / 2 + 50)
-# t.write("yas")
 
 # t.hideturtle()
 x_start = -s.window_width() / 2 + 35
 y_start = -s.window_height() / 2 + 50
 
-t.penup()
-t.goto(x_start, y_start)
-t.setheading(0)
-t.pendown()
-t.forward(1200)
-t.penup()
+
 
 # y-as
-x_start = -s.window_width() / 2 + 35
-t.goto(x_start, y_start)
-t.write(t.pos())
-t.setheading(90)
-t.forward(50)
 t.penup()
 
 for y in range(-12, 28  , 2):
@@ -89,14 +66,34 @@ for y in range(-12, 28  , 2):
     t.write(y)
     y_start += 30
 
+t.penup()
+
+y_l = -240
+
+for l in range(19):
+    t.color('grey')
+    t.goto(x_start , y_l)
+    t.setheading(0)
+    t.pendown()
+    t.forward(1200)
+    t.penup()
+    y_l += 30
+
 
 x_start = -s.window_width() / 2 + 35
 y_start = -s.window_height() / 2 + 50
 
 # x-as
+t.penup()
+t.goto(x_start, y_start + 5)
+t.setheading(0)
+t.pendown()
+t.forward(1200)
+t.penup()
+
 for count, element in enumerate(combo.keys(), ):
     if count % 24 == 0:
-        t.goto(x_start, y_start-1)
+        t.goto(x_start, y_start+4)
         t.setheading(-90)
         t.pendown()
         t.pensize(2)
@@ -107,7 +104,7 @@ for count, element in enumerate(combo.keys(), ):
         t.write('day', True, align="center", font=("Arial", 14, 'normal'))
         x_start += 10
     elif count % 12 == 0:
-        t.goto(x_start, y_start)
+        t.goto(x_start, y_start + 4)
         t.setheading(-90)
         t.pendown()
         t.forward(20)
@@ -118,13 +115,17 @@ for count, element in enumerate(combo.keys(), ):
         x_start += 10
     else:
         t.pensize(0)
-        t.goto(x_start, y_start)
+        t.goto(x_start, y_start + 4)
         t.setheading(-90)
         t.pendown()
         t.forward(10)
         t.penup()
         x_start += 10
+
+x_start = -s.window_width() / 2 + 35
+y_start = -s.window_height() / 2 + 50
     
+
 
 t.penup()
 draw_sx = -590
@@ -133,11 +134,11 @@ t.goto(draw_sx, draw_sy)
 
 
 for w in weer_px:
-    w_y = draw_sy + w * 15
+    w_y = draw_sy + w * 15 + 5
     t.goto(draw_sx, w_y)
-    t.pensize(2)
+    t.pensize()
     t.pendown()
-    t.pensize(4)
+    t.pensize(2)
     t.dot()
     draw_sx += 10
     w_y = 0
