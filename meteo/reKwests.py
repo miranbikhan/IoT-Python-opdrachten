@@ -10,17 +10,6 @@ tkyo = "latitude=35.69&longitude=139.69&hourly=temperature_2m"
 
 selection = input("Which city's temperature should I plot on a graph? \n Antwerp? Santa Monica? Tokyo?\n")
 
-# if selection == "Antwerp":
-#     def which_city():
-#         requests.get(api_url + apen)
-#         return
-# elif selection == "Santa Monica":
-#     def which_city():
-#         requests.get(api_)
-# c1 = which_city()
-
-# print(c1)
-
 def which_city(selection):
     if selection == "Antwerp":
         url = requests.get(api_url + apen)
@@ -32,19 +21,27 @@ def which_city(selection):
         url = requests.get(api_url + tkyo)
         return url
 
-which_city(selection)
 
 def weath_info():
     url = which_city(selection)
-    print(url.json())
+    weather_info = url.json()
+    return weather_info
 
+def time():
+    t_t = weath_info()
+    time = t_t['hourly']['time']
+    return time
+
+
+
+which_city(selection)
 weath_info()
+print(time())
 
+# def time_temp():
 
-
-# city = input("give me a city ")
-
-# response = requests.post(url, data={'select_city': api})
+now = datetime.now()
+print(now)
 
     
 # url = requests.get(api_url + apen)
