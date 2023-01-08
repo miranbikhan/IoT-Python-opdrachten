@@ -1,5 +1,5 @@
 from datetime import datetime
-import json
+from json import load, loads
 import requests
 
 api_url = "https://api.open-meteo.com/v1/forecast?" 
@@ -20,12 +20,13 @@ def which_city(selection):
     elif selection == "Tokyo":
         url = requests.get(api_url + tkyo)
         return url
-
+        
 
 def weath_info():
     url = which_city(selection)
     weather_info = url.json()
     return weather_info
+
 
 def time():
     t_t = weath_info()
@@ -33,24 +34,52 @@ def time():
     return time
 
 
+weath_info = weath_info()
 
-which_city(selection)
-weath_info()
-print(time())
+temp = weath_info['hourly']['temperature_2m']
+print(temp)
 
-# def time_temp():
 
-now = datetime.now()
-print(now)
+def latitude():
+    lat = format(weath_info['latitude'],".2f") 
+    if float(lat) > 0:
+        vert_direction = '°N'
+    else:
+        vert_direction = '°S'
+    lat_direction = lat, vert_direction, ', '
+    latitude_text = list(lat_direction)
+    a_latitude = ''.join(latitude_text)
+    return a_latitude
 
-    
-# url = requests.get(api_url + apen)
+def longitude():
+    long = format(weath_info['longitude'],".2f")
+    if float(long) > 0:
+        hor_direction = '°E'
+    else:
+        hor_direction = '°W'
+    long_direction = long, hor_direction, ', '
+    longitude_text = list(long_direction)
+    a_longitude = ''.join(longitude_text)
+    return a_longitude
 
-# weather_info = url.json()
+def elevation():
+    elevation = str(weath_info['elevation']), 'm ', 'above sea level'
+    elevation_text = list(elevation)
+    a_elevation = ''.join(elevation_text)
+    return a_elevation
 
-# time = weather_info['hourly']['time']
-# temp = weather_info['hourly']['temperature_2m']
+def gen_time():
+    gen_time = 'Generated in ', format(weath_info['generationtime_ms'],".2f"), 'ms,'
+    gen_time_text = list(gen_time)
+    a_gen_time = ''.join(gen_time_text)
+    return a_gen_time
 
-# time_temp = dict(zip(time, temp))
+def timezone():
+    timezone = 'time in ', weath_info['timezone'], '+0'
+    timezone_text = list(timezone)
+    a_timezone = ''.join(timezone_text)
+    return a_timezone 
 
-# print(time_temp)
+# now = datetime.now()
+# print(now)
+
