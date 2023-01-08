@@ -1,3 +1,5 @@
-from reKwests import *
+import reKwests
+import new_meteo
+
 
 
