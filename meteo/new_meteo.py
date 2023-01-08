@@ -3,7 +3,7 @@ from turtle import *
 import requests
 from json import load, loads
 
-
+# request code begins here
 apen = requests.get("https://api.open-meteo.com/v1/forecast?latitude=51.22&longitude=4.40&hourly=temperature_2m")
 snt_mnca = requests.get("https://api.open-meteo.com/v1/forecast?latitude=34.02&longitude=-118.49&hourly=temperature_2m")
 tkyo = requests.get("https://api.open-meteo.com/v1/forecast?latitude=35.69&longitude=139.69&hourly=temperature_2m")
@@ -14,10 +14,7 @@ snt_mnca_info = snt_mnca.json()
 tkyo_info = tkyo.json()
 sao_paul_info = sao_paul.json()
 
-selection = ""
-
 selection = input("Choose a city: \n 1. Antwerp \n 2. Santa Monica\n 3. Tokyo\n 4. Sao Paulo\n")
-
 
 if selection == "Antwerp":
     def temp():
@@ -252,16 +249,19 @@ t.speed(0)
 s.delay(0)
 # t.hideturtle()
 
+def info_text():
+    t.penup()
+    t.setpos(0, 600)
+    t.write(t.pos())
+    t.write(selection, font=('Arial', 20))
+    t.write(text_top(), font=('Arial', 18))
+
+info_text()
 
 # y-as starts here
 
-def y_value_generator():
-    list_hot = hot + 1
-    y_axis = [*range(cold, list_hot)]
-    return y_axis
-
 def temp_y_axis():
-    y_axis = y_value_generator()
+    y_axis = [*range(cold, hot)]
     t.penup()
     x_start = -s.window_width() / 2 + 13
     y_start = -s.window_height() / 2 + 50   
@@ -355,7 +355,6 @@ def draw_line():
     t.penup()
     draw_sx = -580
     draw_sy = -275
-    print('draw_sy:', draw_sy)
     t.goto(draw_sx, draw_sy)
     counter = 0
     for w in (weer_px):
