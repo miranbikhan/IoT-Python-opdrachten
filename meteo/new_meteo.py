@@ -10,6 +10,47 @@ weer = gentweer['hourly']['temperature_2m']
 weer_px = [i for i in weer]
 combo = dict(zip(time, weer_px))
 
+def latitude():
+    lat = format(gentweer['latitude'],".2f") 
+    if float(lat) > 0:
+        vert_direction = '°N'
+    else:
+        vert_direction = '°S'
+    lat_direction = lat, vert_direction, ', '
+    latitude_text = list(lat_direction)
+    a_latitude = ''.join(latitude_text)
+    return a_latitude
+
+def longitude():
+    long = format(gentweer['longitude'],".2f")
+    if float(long) > 0:
+        hor_direction = '°E'
+    else:
+        hor_direction = '°W'
+    long_direction = long, hor_direction, ', '
+    longitude_text = list(long_direction)
+    a_longitude = ''.join(longitude_text)
+    return a_longitude
+
+def elevation():
+    elevation = str(gentweer['elevation']), 'm ', 'above sea level'
+    elevation_text = list(elevation)
+    a_elevation = ''.join(elevation_text)
+    return a_elevation
+
+def gen_time():
+    gen_time = 'Generated in ', format(gentweer['generationtime_ms'],".2f"), 'ms,'
+    gen_time_text = list(gen_time)
+    a_gen_time = ''.join(gen_time_text)
+    return a_gen_time
+
+def timezone():
+    timezone = 'time in ', gentweer['timezone'], '+0'
+    timezone_text = list(timezone)
+    a_timezone = ''.join(timezone_text)
+    return a_timezone
+
+
 
 # cold = min(weer)
 # hot = max(weer)
@@ -61,9 +102,14 @@ y_start = -s.window_height() / 2 + 50
 # y-as
 t.penup()
 
-for y in range(-12, 28  , 2):
+for y, index in enumerate(range(-12, 28  , 2)):
+    if y == 0:
+        t.goto(x_start - 25, y_start)
+        t.write("")
+        y_start += 30
+        continue
     t.goto(x_start - 25 , y_start)
-    t.write(y)
+    t.write(index, font=("Arial", 12, "normal"))
     y_start += 30
 
 t.penup()
@@ -82,7 +128,7 @@ for l in range(19):
 
 x_start = -s.window_width() / 2 + 35
 y_start = -s.window_height() / 2 + 50
-
+t.color('black')
 # x-as
 t.penup()
 t.goto(x_start, y_start + 5)
@@ -134,11 +180,13 @@ t.goto(draw_sx, draw_sy)
 
 
 for w in weer_px:
+    t.color('cyan')
     w_y = draw_sy + w * 15 + 5
     t.goto(draw_sx, w_y)
     t.pensize()
     t.pendown()
     t.pensize(2)
+    t.color('cyan')
     t.dot()
     draw_sx += 10
     w_y = 0
