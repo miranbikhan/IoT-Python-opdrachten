@@ -401,9 +401,9 @@ def current_time():
 def draw_current():
     cpx = current_time()
     t.penup()
-    draw_sx = -580
+    draw_sx = -570
     draw_sy = -290
-    current = draw_sx + int(cpx) + 10
+    current = draw_sx + int(cpx)
     t.goto(current, draw_sy)
     t.setheading(90)
     t.pensize(2)
