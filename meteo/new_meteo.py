@@ -18,10 +18,6 @@ sao_paul_info = sao_paul.json()
 selection = input("Choose a city: \n 1. Antwerp \n 2. Santa Monica\n 3. Tokyo\n 4. Sao Paulo\n")
 
 if selection == "Antwerp":
-    def current_time():
-        current = apen_info['current_weather']['time']
-        return current
-
     def time():
         time = apen_info['hourly']['time']
         return time
@@ -79,9 +75,6 @@ if selection == "Antwerp":
         return text_bottom
 
 elif selection == "Santa Monica":
-    def current_time():
-        current = snt_mnca_info['current_weather']['time']
-        return current
         
     def time():
         time = snt_mnca_info['hourly']['time']
@@ -140,9 +133,6 @@ elif selection == "Santa Monica":
         return text_bottom
 
 elif selection == "Tokyo":
-    def current_time():
-        current = tkyo_info['current_weather']['time']
-        return current
 
     def time():
         time = tkyo_info['hourly']['time']
@@ -201,9 +191,6 @@ elif selection == "Tokyo":
         return text_bottom
 
 elif selection == "Sao Paulo":
-    def current_time():
-        current = sao_paul_info['current_weather']['time']
-        return current
 
     def time():
         time = sao_paul_info['hourly']['time']
@@ -282,9 +269,6 @@ for date in new_time_list:
 for n in range(3):
     dates_list.pop()
 
-current = current_time()
-current_moment = datetime.fromtimestamp(current)
-current_hour = current_moment.strftime('%H')
 
 weer = temp()
 weer_px = [i for i in weer]
@@ -401,12 +385,25 @@ def x_2h():
             x_start += 20
 x_2h()
 
-#huidig uur
+# current time calculate
+def current_time():
+    dt = datetime.now()
+    n = datetime.timestamp(dt)
+    nw = format(n,".0f") 
+    nwn = int(nw)
+    dt_hr = datetime.fromtimestamp(nwn).strftime('%H')
+    dt_min = datetime.fromtimestamp(nwn).strftime('%M')
+    minutes = int(dt_hr) * 60 + int(dt_min) - 60
+    cpx = int(minutes) * 0.17
+    return cpx
+
+#draw current time
 def draw_current():
+    cpx = current_time()
     t.penup()
     draw_sx = -580
-    draw_sy = -275
-    current = draw_sx + (int(current_hour) * 10)
+    draw_sy = -290
+    current = draw_sx + int(cpx) + 10
     t.goto(current, draw_sy)
     t.setheading(90)
     t.pensize(2)
