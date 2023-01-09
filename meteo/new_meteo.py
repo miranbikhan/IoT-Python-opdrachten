@@ -2,12 +2,13 @@ import turtle
 from turtle import *
 import requests
 from json import load, loads
+from datetime import datetime
 
 # request code begins here
-apen = requests.get("https://api.open-meteo.com/v1/forecast?latitude=51.22&longitude=4.40&hourly=temperature_2m")
-snt_mnca = requests.get("https://api.open-meteo.com/v1/forecast?latitude=34.02&longitude=-118.49&hourly=temperature_2m")
-tkyo = requests.get("https://api.open-meteo.com/v1/forecast?latitude=35.69&longitude=139.69&hourly=temperature_2m")
-sao_paul = requests.get("https://api.open-meteo.com/v1/forecast?latitude=-23.55&longitude=-46.64&hourly=temperature_2m")
+apen = requests.get("https://api.open-meteo.com/v1/forecast?latitude=51.22&longitude=4.40&hourly=temperature_2m&current_weather=true&timeformat=unixtime&timezone=auto")
+snt_mnca = requests.get("https://api.open-meteo.com/v1/forecast?latitude=34.02&longitude=-118.49&hourly=temperature_2m&current_weather=true&timeformat=unixtime&timezone=auto")
+tkyo = requests.get("https://api.open-meteo.com/v1/forecast?latitude=35.69&longitude=139.69&hourly=temperature_2m&current_weather=true&timeformat=unixtime&timezone=auto")
+sao_paul = requests.get("https://api.open-meteo.com/v1/forecast?latitude=-23.55&longitude=-46.64&hourly=temperature_2m&current_weather=true&timeformat=unixtime&timezone=auto")
 
 apen_info = apen.json()
 snt_mnca_info = snt_mnca.json()
@@ -17,6 +18,10 @@ sao_paul_info = sao_paul.json()
 selection = input("Choose a city: \n 1. Antwerp \n 2. Santa Monica\n 3. Tokyo\n 4. Sao Paulo\n")
 
 if selection == "Antwerp":
+    def time():
+        time = apen_info['hourly']['time']
+        return time
+
     def temp():
         temp = apen_info['hourly']['temperature_2m']
         return temp
@@ -70,6 +75,10 @@ if selection == "Antwerp":
         return text_bottom
 
 elif selection == "Santa Monica":
+    def time():
+        time = snt_mnca_info['hourly']['time']
+        return time
+
     def temp():
         temp = snt_mnca_info['hourly']['temperature_2m']
         return temp
@@ -123,6 +132,10 @@ elif selection == "Santa Monica":
         return text_bottom
 
 elif selection == "Tokyo":
+    def time():
+        time = tkyo_info['hourly']['time']
+        return time
+
     def temp():
         temp = tkyo_info['hourly']['temperature_2m']
         return temp
@@ -176,6 +189,10 @@ elif selection == "Tokyo":
         return text_bottom
 
 elif selection == "Sao Paulo":
+    def time():
+        time = sao_paul_info['hourly']['time']
+        return time
+
     def temp():
         temp = sao_paul_info['hourly']['temperature_2m']
         return temp
@@ -190,6 +207,7 @@ elif selection == "Sao Paulo":
         latitude_text = list(lat_direction)
         a_latitude = ''.join(latitude_text)
         return a_latitude
+    latitude()
 
     def longitude():
         long = format(sao_paul_info['longitude'],".2f")
@@ -230,6 +248,30 @@ elif selection == "Sao Paulo":
 
 
 #all the variables needed
+time = time()
+time_list = list(time)
+
+new_time_list = []
+for count, t in enumerate(time_list):
+    if count % 24 == 0:
+        new_time_list.append(t)
+
+    
+dates_list = []
+for date in new_time_list:
+    dates = datetime.fromtimestamp(date)
+    datez = dates.strftime('%d %b')
+    dates_list.append(datez)
+
+for n in range(3):
+    dates_list.pop()
+    
+
+
+# ts = 1638529647
+# moment = datetime.fromtimestamp(ts)
+# print(moment.strftime('%Y-%m-%d')) # print as YYYY-mm-dd
+
 weer = temp()
 weer_px = [i for i in weer]
 
@@ -250,11 +292,13 @@ s.delay(0)
 # t.hideturtle()
 
 def info_text():
+    text = list(text_top())
+    alpha_text = ''.join(text)
     t.penup()
-    t.setpos(0, 600)
-    t.write(t.pos())
-    t.write(selection, font=('Arial', 20))
-    t.write(text_top(), font=('Arial', 18))
+    t.goto(-100, 250)
+    t.write(selection, font=('Arial', 30))
+    t.goto(-100, 230)
+    t.write(text, font=('Arial', 18))
 
 info_text()
 
@@ -306,17 +350,17 @@ bottom_x_axis()
 def x_days():
     x_start = -s.window_width() / 2 + 45
     y_start = -s.window_height() / 2 + 34
-    for d in range(4):
-            t.goto(x_start, y_start)
-            t.setheading(-90)
-            t.pendown()
-            t.pensize(2)
-            t.forward(8)
-            t.penup()
-            t.forward(12)
-            t.setheading(0)
-            t.write('day', True, align="center", font=("Arial", 11, 'normal'))
-            x_start += 240
+    for d in dates_list:
+        t.goto(x_start, y_start)
+        t.setheading(-90)
+        t.pendown()
+        t.pensize(2)
+        t.forward(8)
+        t.penup()
+        t.forward(12)
+        t.setheading(0)
+        t.write(d, True, align="center", font=("Arial", 11, 'normal'))
+        x_start += 240
 
 x_days()
 
