@@ -227,7 +227,6 @@ elif selection == "Sao Paulo":
         latitude_text = list(lat_direction)
         a_latitude = ''.join(latitude_text)
         return a_latitude
-    latitude()
 
     def longitude():
         long = format(sao_paul_info['longitude'],".2f")
@@ -301,8 +300,15 @@ rain_px = [i for i in rain]
 min_rain = round(min(rain))
 max_rain = round(max(rain))
 total_rain = min_rain - max_rain
-steps_rain = abs(total_rain)
-rain_block  = round(400/steps_rain)
+if total_rain == 0:
+    min_rain = 0
+    max_rain = 2
+    steps_rain = 2
+    rain_block = round(400/2)
+else:
+    steps_rain = abs(total_rain)
+    print(steps_rain)
+    rain_block  = round(400/steps_rain)
 
 #turtle code starts here
 t = turtle.Turtle()
