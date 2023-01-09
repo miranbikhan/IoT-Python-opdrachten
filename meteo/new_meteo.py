@@ -18,6 +18,10 @@ sao_paul_info = sao_paul.json()
 selection = input("Choose a city: \n 1. Antwerp \n 2. Santa Monica\n 3. Tokyo\n 4. Sao Paulo\n")
 
 if selection == "Antwerp":
+    def current_time():
+        current = apen_info['current_weather']['time']
+        return current
+
     def time():
         time = apen_info['hourly']['time']
         return time
@@ -75,6 +79,10 @@ if selection == "Antwerp":
         return text_bottom
 
 elif selection == "Santa Monica":
+    def current_time():
+        current = snt_mnca_info['current_weather']['time']
+        return current
+        
     def time():
         time = snt_mnca_info['hourly']['time']
         return time
@@ -132,6 +140,10 @@ elif selection == "Santa Monica":
         return text_bottom
 
 elif selection == "Tokyo":
+    def current_time():
+        current = tkyo_info['current_weather']['time']
+        return current
+
     def time():
         time = tkyo_info['hourly']['time']
         return time
@@ -189,6 +201,10 @@ elif selection == "Tokyo":
         return text_bottom
 
 elif selection == "Sao Paulo":
+    def current_time():
+        current = sao_paul_info['current_weather']['time']
+        return current
+
     def time():
         time = sao_paul_info['hourly']['time']
         return time
@@ -265,12 +281,10 @@ for date in new_time_list:
 
 for n in range(3):
     dates_list.pop()
-    
 
-
-# ts = 1638529647
-# moment = datetime.fromtimestamp(ts)
-# print(moment.strftime('%Y-%m-%d')) # print as YYYY-mm-dd
+current = current_time()
+current_moment = datetime.fromtimestamp(current)
+current_hour = current_moment.strftime('%H')
 
 weer = temp()
 weer_px = [i for i in weer]
@@ -289,7 +303,7 @@ width, height = 1250, 650
 s.setup(width, height)
 t.speed(0)
 s.delay(0)
-# t.hideturtle()
+t.hideturtle()
 
 def info_text():
     text = list(text_top())
@@ -299,7 +313,6 @@ def info_text():
     t.write(selection, font=('Arial', 30))
     t.goto(-100, 230)
     t.write(text, font=('Arial', 18))
-
 info_text()
 
 # y-as starts here
@@ -315,10 +328,8 @@ def temp_y_axis():
         t.write(y, align='center', font=("Arial", 11, "normal"))
         y_start += block
         t.penup()
-
 temp_y_axis()
     
-
 def y_axis_lines():
     x_start = -s.window_width() / 2 + 35
     y_l = -275 + 5
@@ -330,7 +341,6 @@ def y_axis_lines():
         t.forward(970)
         t.penup()
         y_l += block
-
 y_axis_lines()
 
 # x-as starts here
@@ -344,7 +354,6 @@ def bottom_x_axis():
     t.pendown()
     t.forward(970)
     t.penup()
-
 bottom_x_axis()
 
 def x_days():
@@ -361,7 +370,6 @@ def x_days():
         t.setheading(0)
         t.write(d, True, align="center", font=("Arial", 11, 'normal'))
         x_start += 240
-
 x_days()
 
 def x_noon():
@@ -391,10 +399,23 @@ def x_2h():
             t.forward(4)
             t.penup()
             x_start += 20
-
 x_2h()
 
-    
+#huidig uur
+def draw_current():
+    t.penup()
+    draw_sx = -580
+    draw_sy = -275
+    current = draw_sx + (int(current_hour) * 10)
+    t.goto(current, draw_sy)
+    t.setheading(90)
+    t.pensize(2)
+    t.pencolor(255, 167, 61)
+    t.down()
+    t.forward(400)
+draw_current()
+
+#temperatuur tekening
 def draw_line():
     t.penup()
     draw_sx = -580
@@ -403,14 +424,14 @@ def draw_line():
     counter = 0
     for w in (weer_px):
         if counter < 97:
-            t.color('cyan')
+            t.color(132, 121, 255)
             w_y = (abs(w) - abs(cold) ) * block 
             draw_sy += abs(w_y)
             t.goto(draw_sx, draw_sy)
             t.pensize()
             t.pendown()
             t.pensize(2)
-            t.color('cyan')
+            t.color(100, 79, 252)
             t.dot()
             draw_sx += 10
             w_y = 0
@@ -418,10 +439,7 @@ def draw_line():
             counter += 1
         else:
             break
-
 draw_line()
 
-
-   
 
 s.exitonclick()
